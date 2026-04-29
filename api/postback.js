@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
   const { click_id, payout, aff_id } = req.query;
 
-  const BOT_TOKEN = "8324019323:AAEe4Rj9OUtDx32hxe5s1FxwKau_9b3oDtA";
-  const CHAT_ID = "-1003895839348";
+  const BOT_TOKEN = "8324019323:AAG5xdX94GyXdHna3fjVbx3Ovky9Fd7HF4Q";
+  const CHAT_ID = "-7185227392";
 
   const message = `🔥 New Conversion!
 
