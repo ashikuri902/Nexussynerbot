@@ -1,0 +1,7 @@
+{
+  "name": "telegram-postback",
+  "version": "1.0.0",
+  "description": "CPAGrip Telegram Postback",
+  "private": true,
+  "license": "MIT"
+}
