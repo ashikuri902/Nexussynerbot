@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   const BOT_TOKEN = "8757239334:AAFRkYJ62w2n3WhcWharR_O06h4GYgpPMcU";
   const CHAT_ID = "-1003762912239";
-  const PASSWORD = "MySecure@2026";
+  const PASSWORD = "";
 
   const body = req.body || {};
 
