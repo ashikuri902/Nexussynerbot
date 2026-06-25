@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).send("Method Not Allowed");
-  }
+if (req.method === "GET") {
+  return res.status(200).send("Postback API is working.");
+}
 
   const BOT_TOKEN = "8757239334:AAFRkYJ62w2n3WhcWharR_O06h4GYgpPMcU";
   const CHAT_ID = "-1003762912239";
