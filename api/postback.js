@@ -1,27 +1,31 @@
-export default async function handler(req, res) {
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
 
-  // Browser Test
+export default async function handler(req, res) {
   if (req.method === "GET") {
     return res.status(200).send("Postback API is working.");
   }
 
-  // Only POST Allowed
   if (req.method !== "POST") {
     return res.status(405).send("Method Not Allowed");
   }
 
-  const BOT_TOKEN = "YOUR_BOT_TOKEN";
-  const CHAT_ID = "YOUR_CHAT_ID";
+  const BOT_TOKEN = "8757239334:AAFRkYJ62w2n3WhcWharR_O06h4GYgpPMcU";
+  const CHAT_ID = "-1003762912239";
+  const PASSWORD = "";
 
-  // Optional Password
-  const PASSWORD = "secret123";
-  if (PASSWORD && req.body.password !== PASSWORD) {
+  const body = req.body || {};
+
+  if (PASSWORD && body.password !== PASSWORD) {
     return res.status(403).send("Access Denied");
   }
 
-  const payout = req.body.payout || "0";
-  const offer = req.body.offer_id || "-";
-  const tracking = req.body.tracking_id || "-";
+  const payout = body.payout || "0";
+  const offer = body.offer_id || "-";
+  const tracking = body.tracking_id || "-";
 
   const text =
 `🎉 <b>New Conversion</b>
@@ -30,29 +34,27 @@ export default async function handler(req, res) {
 🆔 ${tracking}`;
 
   try {
-    const response = await fetch(
-      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text,
-          parse_mode: "HTML",
-        }),
-      }
-    );
+    const tg = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text,
+        parse_mode: "HTML",
+      }),
+    });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(500).json(data);
+    if (!tg.ok) {
+      const err = await tg.text();
+      return res.status(500).send(err);
     }
 
     return res.status(200).send("OK");
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
+  } catch (e) {
+    return res.status(500).json({
+      error: e.message,
+    });
   }
 }
